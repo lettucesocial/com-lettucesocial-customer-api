@@ -66,9 +66,13 @@ module.exports = function buildGetDb
                                 return db;
 
                             }
-                        catch (error) 
+                        catch
+                        (
+                            error
+                        ) 
                             {
                                 console.log(error);
+                                throw error;
                             }
                     }
 

@@ -16,7 +16,7 @@ module.exports = function
 
         
 
-        const { getAllCreatorByZipcode } = require('./get-all-creator-by-city')(
+        const { getAllCreatorByZipcode } = require('./get-all-creator-by-zipcode')(
             {
                 getDb: getDb
             }

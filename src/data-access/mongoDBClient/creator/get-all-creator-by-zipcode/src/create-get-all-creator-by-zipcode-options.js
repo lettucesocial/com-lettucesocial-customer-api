@@ -20,8 +20,13 @@ module.exports = function buildCreateGetAllCreatorByZipcodeOptions
                     "zipCode": zipcode
                 };
 
+                const sort = {
+                    "firstName":-1
+                }
+
                 const options = {
-                    filter: filter
+                    filter: filter,
+                    sort:sort
                 }
 
                 return options;

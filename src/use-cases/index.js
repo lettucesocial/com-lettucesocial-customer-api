@@ -6,6 +6,8 @@ module.exports = function
 )
     {
 
+        const models = require('../model')();
+
         const dataAccess = require('../data-access')(
             {
                 mongoDb_credentials: mongoDb_credentials
@@ -19,9 +21,25 @@ module.exports = function
             }
         );
 
+        const businessServices = require('./business')(
+            {
+                makeBusiness: models.makeBusiness,
+                addBusinessDB: dataAccess.mongo.business.addBusiness
+            }
+        );
+
+        const orderServices = require('./order')(
+            {
+                makeOrder: models.makeOrder,
+                createOrderDB: dataAccess.mongo.order.addOrder
+            }
+        )
+
         const services = Object.freeze(
             {
-                creator: creatorServices
+                creator: creatorServices,
+                business: businessServices,
+                order: orderServices
             }
         );
 

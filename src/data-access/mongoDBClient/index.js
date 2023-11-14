@@ -35,8 +35,24 @@ module.exports  = function
                     }
                 );
 
+            getDb();
+
             
             const creatorServices = require('./creator')(
+                {
+                    getDb:getDb,
+                    ObjectId: ObjectId
+                }
+            );
+
+            const businessServices = require('./business')(
+                {
+                    getDb:getDb,
+                    ObjectId: ObjectId
+                }
+            );
+
+            const orderServices = require('./order')(
                 {
                     getDb:getDb,
                     ObjectId: ObjectId
@@ -48,6 +64,8 @@ module.exports  = function
             const services = Object.freeze(
                 {
                     creator: creatorServices,
+                    business: businessServices,
+                    order: orderServices
                 }
             );
 

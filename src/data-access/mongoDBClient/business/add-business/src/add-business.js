@@ -1,4 +1,4 @@
-module.exports = function buildGetAllCreatorByZipcode
+module.exports= function buildAddBusiness
 (
     {
         getDb,
@@ -12,7 +12,7 @@ module.exports = function buildGetAllCreatorByZipcode
             !getDb
         )
             {
-                throw new Error('buildGetAllCreatorByZipcode must have getDb.');
+                throw new Error('buildAddCreator must have getDb.');
             }
 
         if
@@ -20,7 +20,7 @@ module.exports = function buildGetAllCreatorByZipcode
             !createOptions
         )
             {
-                throw new Error('buildGetAllCreatorByZipcode must have createOptions.');
+                throw new Error('buildAddCreator must have createOptions.');
             }
 
         if
@@ -28,40 +28,40 @@ module.exports = function buildGetAllCreatorByZipcode
             !translateResponse
         )
             {
-                throw new Error('buildGetAllCreatorByZipcode must have translateResponse.');
+                throw new Error('buildAddCreator must have translateResponse.');
             }
 
-        const COLLECTION_NAME = 'creators';
-        
-        return async function getAllCreatorByZipcode
+        const COLLECTION_NAME = 'businesses';
+
+        return async function addBusiness
         (
             {
-                zipcode
+                business
             }
         )
             {
                 if
                 (
-                    !zipcode
+                    !business
                 )
                     {
-                        throw new Error('getAllCreatorByZipcode must have zipcode.');
+                        throw new Error('addBusiness must have business.');
                     }
-                    
+
                 const db = await getDb();
-                
+
                 const collection = db.collection(
                     COLLECTION_NAME
                 );
 
                 const options = createOptions(
                     {
-                        zipcode: zipcode
+                        business: business
                     }
                 );
 
-                const response = await collection.find(
-                    options.filter
+                const response = await collection.insertOne(
+                    options.document
                 );
 
                 const result = translateResponse(

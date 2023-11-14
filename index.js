@@ -36,77 +36,52 @@ app.get('/isAlive',
         }
 );
 
+function sendResult
+(
+    res,
+    data
+)
+    {
+        res.json(data);
+    }
+
+function processError(
+    res,
+    error
+)
+    {
+        console.error(
+            error
+        );
+
+        Sentry.captureException(error);
+
+        res.status(400).json(
+            {
+                type:false,
+                message: error.message 
+            }
+        );
+    }
+
+const routerServices = require('./routes')(
+    {
+        express: express,
+        customerServices: customerServices,
+        processError:processError,
+        sendResult: sendResult
+    }
+)
+
 //========= CREATOR ======================
 
-app.get('/creator',
-    async (
-        req,
-        res
-    ) =>
-        {
-            try
-                {
-                    const creatorList = await customerServices.creator.getAllCreatorList();
+const creatorRoutes = routerServices.creator()
+app.use('/creator', creatorRoutes);
 
-                    const result = {
-                        creatorList : creatorList
-                    };
+//========= BUSINESS ======================
 
-                    sendResult(
-                        res,
-                        result
-                    );
-                }
-            catch
-            (
-                error
-            )
-                {
-                    processError(
-                        res,
-                        error
-                    )
-                }
-        }
-);
-
-app.get('/creator/byZipCode/:zipCode',
-    async (
-        req,
-        res
-    ) =>
-        {
-            try
-                {
-
-                    const zipCode = parseInt(req.params['zipCode'])
-                    const creatorList = await customerServices.creator.searchCreatorByZipcode(
-                        {
-                            zipcode:zipCode
-                        }
-                    );
-
-                    const result = {
-                        creatorList : creatorList
-                    };
-
-                    sendResult(
-                        res,
-                        result
-                    );
-                }
-            catch
-            (
-                error
-            )
-                {
-                    processError(
-                        res,
-                        error
-                    )
-                }
-        }
-);
+const businessRoutes = routerServices.business()
+app.use('/business', businessRoutes);
 
 
 function sendResult
