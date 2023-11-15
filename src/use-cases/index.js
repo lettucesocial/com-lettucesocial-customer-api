@@ -18,6 +18,7 @@ module.exports = function
             {
                 getAllCreatorDB: dataAccess.mongo.creator.getAllCreator,
                 getAllCreatorByZipcodeDB: dataAccess.mongo.creator.getAllCreatorByZipcode,
+                getCreatorByIdDB: dataAccess.mongo.creator.getCreatorById
             }
         );
 
@@ -33,13 +34,21 @@ module.exports = function
                 makeOrder: models.makeOrder,
                 createOrderDB: dataAccess.mongo.order.addOrder
             }
+        );
+
+        const packageServices = require('./package')(
+            {
+                getAllPackageDB: dataAccess.mongo.package.getAllPackage,
+                getPackageByIdDB: dataAccess.mongo.package.getPackageById
+            }
         )
 
         const services = Object.freeze(
             {
                 creator: creatorServices,
                 business: businessServices,
-                order: orderServices
+                order: orderServices,
+                package: packageServices
             }
         );
 

@@ -2,7 +2,7 @@ module.exports = function buildCreateOrderRouter
 (
     {
         express,
-        orderUsecases,
+        packageUsecases,
         sendResult,
         processError
     }
@@ -18,10 +18,10 @@ module.exports = function buildCreateOrderRouter
 
         if
         (
-            !orderUsecases
+            !packageUsecases
         )
             {
-                throw new Error('buildCreateOrderRouter must have orderUsecases.');
+                throw new Error('buildCreateOrderRouter must have packageUsecases.');
             }
 
         if
@@ -44,7 +44,7 @@ module.exports = function buildCreateOrderRouter
             {
                 let router = express.Router();
 
-                router.post('/',
+                router.get('/',
                     async (
                         req,
                         res
@@ -52,16 +52,10 @@ module.exports = function buildCreateOrderRouter
                         {
                             try
                                 {
-                                    const createOrderInfo = req.body;
-
-                                    const order = await orderUsecases.createOrder(
-                                        {
-                                            createOrderInfo:createOrderInfo
-                                        }
-                                    );
+                                    const packageList = await packageUsecases.getAllPackage();
 
                                     const result = {
-                                        order : order
+                                        packageList : packageList
                                     };
 
                                     sendResult(
@@ -82,6 +76,44 @@ module.exports = function buildCreateOrderRouter
                         }
                 );
 
+                router.get('/:packageId',
+                    async (
+                        req,
+                        res
+                    ) =>
+                        {
+                            try
+                                {
+
+                                    const packageId = req.params["packageId"];
+
+                                    const package = await packageUsecases.getPackageById(
+                                        {
+                                            packageId: packageId
+                                        }
+                                    );
+
+                                    const result = {
+                                        package : package
+                                    };
+
+                                    sendResult(
+                                        res,
+                                        result
+                                    );
+                                }
+                            catch
+                            (
+                                error
+                            )
+                                {
+                                    processError(
+                                        res,
+                                        error
+                                    )
+                                }
+                        }
+                );
 
                 return router;
             }

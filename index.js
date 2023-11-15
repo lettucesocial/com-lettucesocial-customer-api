@@ -83,6 +83,16 @@ app.use('/creator', creatorRoutes);
 const businessRoutes = routerServices.business()
 app.use('/business', businessRoutes);
 
+//========= PACKAGE ======================
+
+const pakcageRoutes = routerServices.package()
+app.use('/package', pakcageRoutes);
+
+//========= PACKAGE ======================
+
+const orderRoutes = routerServices.order()
+app.use('/order', orderRoutes);
+
 
 function sendResult
 (

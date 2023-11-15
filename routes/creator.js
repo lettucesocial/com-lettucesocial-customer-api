@@ -77,6 +77,45 @@ module.exports = function buildCreateCreatorRouter
                         }
                 );
 
+                router.get('/:creatorId',
+                    async (
+                        req,
+                        res
+                    ) =>
+                        {
+                            try
+                                {
+
+                                    const creatorId = req.params["creatorId"];
+
+                                    const creator = await creatorUsecases.getCreatorById(
+                                        {
+                                            creatorId: creatorId
+                                        }
+                                    );
+
+                                    const result = {
+                                        creator : creator
+                                    };
+
+                                    sendResult(
+                                        res,
+                                        result
+                                    );
+                                }
+                            catch
+                            (
+                                error
+                            )
+                                {
+                                    processError(
+                                        res,
+                                        error
+                                    )
+                                }
+                        }
+                );
+
                 router.get('/byZipCode/:zipCode',
                     async (
                         req,

@@ -59,13 +59,21 @@ module.exports  = function
                 }
             );
 
+
+            const packageServices = require('./package')(
+                {
+                    getDb:getDb,
+                    ObjectId: ObjectId
+                }
+            );
            
 
             const services = Object.freeze(
                 {
                     creator: creatorServices,
                     business: businessServices,
-                    order: orderServices
+                    order: orderServices,
+                    package: packageServices
                 }
             );
 

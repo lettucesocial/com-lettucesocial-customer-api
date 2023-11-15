@@ -24,6 +24,15 @@ module.exports = function
 
         
 
+        const { getCreatorById } = require('./get-creator-by-id')(
+            {
+                getDb: getDb,
+                ObjectId:ObjectId 
+            }
+        );
+
+        
+
        
 
 
@@ -31,6 +40,7 @@ module.exports = function
             {
                 getAllCreator,
                 getAllCreatorByZipcode,
+                getCreatorById
             }
         );
 
