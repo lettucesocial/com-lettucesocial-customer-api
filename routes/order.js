@@ -54,14 +54,14 @@ module.exports = function buildCreateOrderRouter
                                 {
                                     const createOrderInfo = req.body;
 
-                                    const order = await orderUsecases.createOrder(
+                                    const createOrderResult = await orderUsecases.createOrder(
                                         {
                                             createOrderInfo:createOrderInfo
                                         }
                                     );
 
                                     const result = {
-                                        order : order
+                                        paymentUrl : createOrderResult
                                     };
 
                                     sendResult(

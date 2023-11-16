@@ -20,13 +20,21 @@ module.exports = function
             }
         );
 
+        const { setPackageDepositStripePriceId } = require('./set-package-deposit-stripe-priceId')(
+            {
+                getDb: getDb,
+                ObjectId: ObjectId
+            }
+        )
+
         
 
 
         const services = Object.freeze(
             {
                 getPackageById,
-                getAllPackage
+                getAllPackage,
+                setPackageDepositStripePriceId
             }
         );
 

@@ -1,11 +1,15 @@
 const buildGetAllPackage= require('./get-all-package');
 const buildGetPackageById = require('./get-package-by-id');
+const buildCreatePackageDepositStripePriceId = require('./create-package-deposit-stripe-priceId');
 
 module.exports= function
 (
     {
         getAllPackageDB,
-        getPackageByIdDB
+        getPackageByIdDB,
+        createPriceStripe,
+        createProductStripe,
+        setPackageDepositStripePriceIdDB
     }
 )
     {
@@ -22,10 +26,19 @@ module.exports= function
             }
         );
 
+        const createPackageDepositStripePriceId = buildCreatePackageDepositStripePriceId(
+            {
+                createPriceStripe: createPriceStripe,
+                createProductStripe: createProductStripe,
+                setPackageDepositStripePriceIdDB: setPackageDepositStripePriceIdDB
+            }
+        );
+
         const services = Object.freeze(
             {
                 getAllPackage,
-                getPackageById 
+                getPackageById,
+                createPackageDepositStripePriceId
             }
         );
 

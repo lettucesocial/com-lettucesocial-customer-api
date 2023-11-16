@@ -1,6 +1,6 @@
 {
   "name": "com-lettucesocial-customer-api",
-  "version": "1.0.50",
+  "version": "1.0.80",
   "description": "com lettucesocial customer api",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,9 @@
     "express": "^4.18.2",
     "mongodb": "4.12.1",
     "node-fetch": "2.6.7",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "stripe": "^13.5.0",
+    "twilio": "^4.14.1"
   },
   "devDependencies": {
     "@types/jest": "^29.0.1",

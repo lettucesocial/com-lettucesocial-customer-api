@@ -2,7 +2,8 @@ module.exports = function buildCreateOrder
 (
     {
         makeOrder,
-        createOrderDB
+        createOrderDB,
+        getPaymentUrl
     }
 )
     {
@@ -20,6 +21,14 @@ module.exports = function buildCreateOrder
         )
             {
                 throw new Error('buildCreateOrder must have createOrderDB.');
+            }
+
+        if
+        (
+            !getPaymentUrl
+        )
+            {
+                throw new Error('buildCreateOrder must have getPaymentUrl.');
             }
             
         return async function createOrder
@@ -40,6 +49,12 @@ module.exports = function buildCreateOrder
                     }
                 );
 
-                return createOrderDBResult;
+                const getPaymentUrlResult = await getPaymentUrl(
+                    {
+                        packageId: order.getPackageId()
+                    }
+                )
+
+                return getPaymentUrlResult;
             }
     }
