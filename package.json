@@ -1,6 +1,6 @@
 {
   "name": "com-lettucesocial-customer-api",
-  "version": "1.0.80",
+  "version": "1.0.190",
   "description": "com lettucesocial customer api",
   "main": "index.js",
   "scripts": {

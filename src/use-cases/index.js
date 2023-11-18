@@ -5,7 +5,10 @@ module.exports = function
         MAILGUN_SEND_EMAIL_URL,
         TWILIO_CREDENTIALS,
         TOWILIO_SMS_NUMBER,
-        STRIPE_SECRET_KEY
+        STRIPE_SECRET_KEY,
+        RECIPET_BASE_URL,
+        BOT_TOKEN,
+        LETTUCESOCIAL_GROUP_TELEMGRA_ID
     }
 )
     {
@@ -23,7 +26,8 @@ module.exports = function
                 MAILGUN_SEND_EMAIL_URL: MAILGUN_SEND_EMAIL_URL,
                 TOWILIO_SMS_NUMBER: TOWILIO_SMS_NUMBER,
                 STRIPE_SECRET_KEY: STRIPE_SECRET_KEY,
-                TWILIO_CREDENTIALS: TWILIO_CREDENTIALS
+                TWILIO_CREDENTIALS: TWILIO_CREDENTIALS,
+                BOT_TOKEN: BOT_TOKEN
             }
         );
         
@@ -60,7 +64,10 @@ module.exports = function
                 createOrderDB: dataAccess.mongo.order.addOrder,
                 createPackageDepositStripePriceId: packageServices.createPackageDepositStripePriceId,
                 createPaymentLinkStripe: providers.stripe.createPaymentLink,
-                getPackageById: packageServices.getPackageById
+                getPackageById: packageServices.getPackageById,
+                RECIPET_BASE_URL : RECIPET_BASE_URL,
+                sendMessageTLGRM: providers.tlgrmBot.sendMessage,
+                LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID
             }
         );
 

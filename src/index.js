@@ -12,7 +12,10 @@ const useCaseServices = require('./use-cases')(
          AUTH_TOKEN: process.env.AUTH_TOKEN
       },
       TOWILIO_SMS_NUMBER: process.env.TOWILIO_SMS_NUMBER,
-      STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY
+      STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+      RECIPET_BASE_URL: process.env.RECIPET_BASE_URL,
+      BOT_TOKEN: process.env.BOT_TOKEN,
+      LETTUCESOCIAL_GROUP_TELEMGRA_ID: process.env.LETTUCESOCIAL_GROUP_TELEMGRA_ID,
    }
  );
  module.exports = useCaseServices;

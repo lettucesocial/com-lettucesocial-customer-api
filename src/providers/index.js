@@ -7,7 +7,8 @@ module.exports = function
         MAILGUN_SEND_EMAIL_URL,
         TWILIO_CREDENTIALS,
         TOWILIO_SMS_NUMBER,
-        STRIPE_SECRET_KEY
+        STRIPE_SECRET_KEY,
+        BOT_TOKEN
     }
 )
     {
@@ -31,11 +32,19 @@ module.exports = function
             }
         );
 
+        const tlgrmBotServices = require('./telegramBotApi')(
+            {
+                BOT_TOKEN: BOT_TOKEN,
+                fetch: fetch,
+            }
+        )
+
         const services = Object.freeze(
             {
                 mailgun: mailgunServices,
                 twilio: twiliogunServices,
-                stripe: stripeServices
+                stripe: stripeServices,
+                tlgrmBot: tlgrmBotServices
             }
         );
 

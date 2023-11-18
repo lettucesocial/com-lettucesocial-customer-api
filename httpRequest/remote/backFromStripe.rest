@@ -1,0 +1,15 @@
+POST http://customer-api.lettucesocial.com/order/returnFromBank/stripe
+Content-Type: application/json
+
+{
+    "type":"payment_intent.succeeded",
+    "data": {
+        "object":{
+            "someDate":"ok Date"
+        }
+    },
+      
+      "accounNumber":12345,
+      "shebaNumber":123455,
+      "isActive": true
+}

@@ -3,7 +3,8 @@ module.exports = function buildCreateOrder
     {
         makeOrder,
         createOrderDB,
-        getPaymentUrl
+        getPaymentUrl,
+        notifyCreatePaymentOrderOnTlgrmGroup
     }
 )
     {
@@ -30,6 +31,14 @@ module.exports = function buildCreateOrder
             {
                 throw new Error('buildCreateOrder must have getPaymentUrl.');
             }
+
+        if
+        (
+            !notifyCreatePaymentOrderOnTlgrmGroup
+        )
+            {
+                throw new Error('buildCreateOrder must have notifyCreatePaymentOrderOnTlgrmGroup.');
+            }
             
         return async function createOrder
         (
@@ -49,9 +58,20 @@ module.exports = function buildCreateOrder
                     }
                 );
 
+                const orderId = createOrderDBResult.toString();
+
+                const notifyCreatePaymentOrderOnTlgrmGroupResult = await notifyCreatePaymentOrderOnTlgrmGroup(
+                    {
+                        orderId: orderId
+                    }
+                );
+
+                const redirectUrl = `http://business.lettucesocial.com/receipt/${orderId}`;
+
                 const getPaymentUrlResult = await getPaymentUrl(
                     {
-                        packageId: order.getPackageId()
+                        packageId: order.getPackageId(),
+                        redirectUrl: redirectUrl
                     }
                 )
 
