@@ -1,17 +1,54 @@
 module.exports = function buildCreateEditMessageRequest
 (
-    proxyAgent,
-    generateInlineKeyboardMarkup
+    {
+        generateInlineKeyboardMarkup
+    }
 )
     {
-        return function createEditMessageRequest
+        if
         (
-            chat_id,
-            message_id,
-            text,
-            reply_markup
+            !generateInlineKeyboardMarkup
         )
             {
+                throw new Error('buildCreateEditMessageRequest must have generateInlineKeyboardMarkup.');
+            }
+
+        return function createEditMessageRequest
+        (
+            {
+                chat_id,
+                message_id,
+                text,
+                reply_markup,
+                parse_mode
+            }
+        )
+            {
+                if
+                (
+                    !chat_id
+                )
+                    {
+                        throw new Error('createEditMessageRequest must have chat_id.');
+                    }
+                
+                if
+                (
+                    !message_id
+                )
+                    {
+                        throw new Error('createEditMessageRequest must have message_id.');
+                    }
+
+                if
+                (
+                    !text
+                )
+                    {
+                        throw new Error('createEditMessageRequest must have text.');
+                    }
+
+
                 const headers = {
                     "content-type":"application/json"
                 };
@@ -21,8 +58,12 @@ module.exports = function buildCreateEditMessageRequest
                         chat_id: chat_id,
                         message_id: message_id,
                         text: text,
-                        parse_mode: "MarkdownV2",
-                        reply_markup: generateInlineKeyboardMarkup(reply_markup)
+                        parse_mode: parse_mode,
+                        reply_markup: generateInlineKeyboardMarkup(
+                            {
+                                inlineKeyboardButtonList: reply_markup
+                            }
+                        )
                     }
                 )
 
@@ -33,10 +74,6 @@ module.exports = function buildCreateEditMessageRequest
                     body: body
                 };
         
-        
-                if(proxyAgent){
-                    options.agent = proxyAgent;
-                }
         
                 return options;
             }

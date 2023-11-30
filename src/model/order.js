@@ -81,7 +81,7 @@ module.exports = function buildMakeOrder
                     {
                         return {
                             package: packageMongoId,
-                            creator: creatorId,
+                            creator: creatorMongoId,
                         }
                     }
 

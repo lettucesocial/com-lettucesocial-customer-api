@@ -42,7 +42,10 @@ module.exports = function
         const businessServices = require('./business')(
             {
                 makeBusiness: models.makeBusiness,
-                addBusinessDB: dataAccess.mongo.business.addBusiness
+                addBusinessDB: dataAccess.mongo.business.addBusiness,
+                getBusinessByIdDB: dataAccess.mongo.business.getBusinessById,
+                LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
+                sendMessageTLGRM: providers.tlgrmBot.sendMessage,
             }
         );
 
@@ -67,7 +70,15 @@ module.exports = function
                 getPackageById: packageServices.getPackageById,
                 RECIPET_BASE_URL : RECIPET_BASE_URL,
                 sendMessageTLGRM: providers.tlgrmBot.sendMessage,
-                LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID
+                LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
+                getOrderByIdDB: dataAccess.mongo.order.getOrderById,
+                setOrderBusinessDB: dataAccess.mongo.order.setOrderBusiness,
+                setOrderPackageDB: dataAccess.mongo.order.setOrderPackage,
+                setOrderStatusDB: dataAccess.mongo.order.setOrderStatus,
+                setOrderDepositDB: dataAccess.mongo.order.setOrderBusiness,
+                setOrderTelegramGroupMessageIdDB: dataAccess.mongo.order.setOrderTelegramGroupMessageId,
+                getOrderFullDetailsByOrderIdDB: dataAccess.mongo.orderFullDetails.getOrderFullDetailsByOrderId,
+                editMessageTLGRM: providers.tlgrmBot.editMessage
             }
         );
 

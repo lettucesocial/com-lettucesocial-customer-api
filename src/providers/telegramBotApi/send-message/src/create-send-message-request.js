@@ -39,14 +39,6 @@ module.exports = function buildCreateSendMessageRequest
                         throw new Error('createSendMessageRequest must have text.');
                     }
 
-                if
-                (
-                    !parse_mode
-                )
-                    {
-                        throw new Error('createSendMessageRequest must have parse_mode.');
-                    }
-
                 const headers = {
                     "content-type":"application/json"
                 };

@@ -83,6 +83,43 @@ module.exports = function buildCreateBusinessRouter
                         }
                 );
 
+                router.post('/requestNotification',
+                    async (
+                        req,
+                        res
+                    ) =>
+                        {
+                            try
+                                {
+                                    const businessRequestNotificationInfo = req.body;
+
+                                    const requestNotificationResult = await businessUsecases.businessRequestNotification(
+                                        {
+                                            businessRequestNotificationInfo: businessRequestNotificationInfo
+                                        }
+                                    );
+
+                                    const result = {
+                                        result : requestNotificationResult
+                                    };
+
+                                    sendResult(
+                                        res,
+                                        result
+                                    );
+                                }
+                            catch
+                            (
+                                error
+                            )
+                                {
+                                    processError(
+                                        res,
+                                        error
+                                    )
+                                }
+                        }
+                );
 
                 return router;
             }

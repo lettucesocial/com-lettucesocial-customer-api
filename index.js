@@ -1,10 +1,36 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+const Sentry = require('@sentry/node');
+const Tracing = require("@sentry/tracing");
+
 
 require('dotenv').config();
 const packageJson = require('./package.json');
 
 var app = express();
+
+if
+(
+    process.env.SENTRY_DSN
+)
+    {
+        Sentry.init(
+            {
+                dsn: process.env.SENTRY_DSN,
+                integrations: [
+                new Sentry.Integrations.Http({ tracing: true }),
+                new Tracing.Integrations.Express({ app }),
+                ],
+                tracesSampleRate: 1.0,
+            }
+        );
+        
+        app.use(Sentry.Handlers.requestHandler());
+        app.use(Sentry.Handlers.tracingHandler());
+        app.use(Sentry.Handlers.errorHandler());
+    }
+
+
 
 app.use(bodyParser.json())
 
@@ -109,6 +135,10 @@ function processError(
 )
     {
         console.error(
+            error
+        );
+
+        Sentry.captureException(
             error
         );
 

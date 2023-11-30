@@ -38,18 +38,16 @@ module.exports = function buildNotifyCreatePaymentOrderOnTlgrmGroup
                     }
                 try
                     {
-                        const message = `🛍 New Order: ${orderId}`;
+                        const message = `🪤 New Order wating for payment \nOrderId: ${orderId}`;
 
                         const sendMessageTLGRMResult = await sendMessageTLGRM(
                             {
                                 chat_id: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
                                 text: message,
-                                parse_mode: 'MarkdownV2',
+                                parse_mode: undefined,
                                 reply_markup:[]
                             }
                         );
-
-                        console.log(sendMessageTLGRMResult);
 
                         return sendMessageTLGRMResult;
                     }

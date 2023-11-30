@@ -13,9 +13,18 @@ module.exports = function
             } 
         );
 
+        const { getBusinessById } = require('./get-business-by-id')
+        (
+            {
+                getDb: getDb,
+                ObjectId: ObjectId
+            }
+        );
+
         const services = Object.freeze(
             {
-                addBusiness
+                addBusiness,
+                getBusinessById
             }
         );
 

@@ -59,6 +59,15 @@ module.exports  = function
                 }
             );
 
+            const orderFullDetailsServices = require('./orderFullDetails')(
+                {
+                    getDb:getDb,
+                    ObjectId: ObjectId
+                }
+            );
+
+            
+
 
             const packageServices = require('./package')(
                 {
@@ -73,7 +82,8 @@ module.exports  = function
                     creator: creatorServices,
                     business: businessServices,
                     order: orderServices,
-                    package: packageServices
+                    package: packageServices,
+                    orderFullDetails: orderFullDetailsServices
                 }
             );
 

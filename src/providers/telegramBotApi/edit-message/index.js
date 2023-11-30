@@ -3,24 +3,29 @@ const buildCreateEditMessageRequest = require('./src/create-edit-message-request
 const buildEditMessage = require('./src/edit-message');
 
 module.exports = function(
-    BOT_TOKEN,
-    proxyAgent,
-    fetch,
-    generateInlineKeyboardMarkup
+    {
+        BOT_TOKEN,
+        fetch,
+        generateInlineKeyboardMarkup
+    }
 )
     {
         const translateEditMessageResponse = buildTranslateEditMessageResponse();
         
         const createEditMessageRequest = buildCreateEditMessageRequest(
-            proxyAgent,
-            generateInlineKeyboardMarkup
+            {
+                generateInlineKeyboardMarkup: generateInlineKeyboardMarkup
+            }
+            
         );
 
         const editMessage = buildEditMessage(
-            BOT_TOKEN,
-            fetch,
-            createEditMessageRequest,
-            translateEditMessageResponse
+            {
+                BOT_TOKEN: BOT_TOKEN,
+                fetch: fetch,
+                createRequest: createEditMessageRequest,
+                translateResponse: translateEditMessageResponse
+            }
         );
 
         const services = Object.freeze(

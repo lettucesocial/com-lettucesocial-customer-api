@@ -83,31 +83,118 @@ module.exports = function buildCreateOrderRouter
                 );
 
                 router.post('/returnFromBank/stripe',
-                async (
-                    req,
-                    res
-                ) =>
-                    {
-                        try
+                    async (
+                        req,
+                        res
+                    ) =>
+                        {
+                            try
+                                {
+                                    const returnFromStripePaymentInfo = req.body;
+
+                                    // Return a response to acknowledge receipt of the event
+                                    const result = {
+                                        received: true
+                                    };
+
+                                    sendResult(
+                                        res,
+                                        result
+                                    );
+
+                                    try
+                                        {
+                                            const createOrderResult = await orderUsecases.returnFromStripePayment(
+                                                {
+                                                    returnFromStripePaymentInfo:returnFromStripePaymentInfo
+                                                }
+                                            );
+                                        }
+                                    catch
+                                    (
+                                        error
+                                    )
+                                        {
+                                            console.log(error);
+                                        }
+                                    
+                                }
+                            catch
+                            (
+                                error
+                            )
+                                {
+                                    processError(
+                                        res,
+                                        error
+                                    )
+                                }
+                        }
+                );
+
+                router.post('/notifyReturnFromBank',
+                    async (
+                        req,
+                        res
+                    ) =>
+                        {
+                            try
+                                {
+                                    const notifyReturnFromStripePaymentInfo = req.body;
+
+                                    const notifyReturnFromStripePaymentResult = await orderUsecases.notifyReturnFromStripePayment(
+                                        {
+                                            notifyReturnFromStripePaymentInfo:notifyReturnFromStripePaymentInfo
+                                        }
+                                    );
+
+                                    const result = {
+                                        result : notifyReturnFromStripePaymentResult
+                                    };
+
+                                    sendResult(
+                                        res,
+                                        result
+                                    );
+                                    
+                                }
+                            catch
+                            (
+                                error
+                            )
+                                {
+                                    processError(
+                                        res,
+                                        error
+                                    )
+                                }
+                        }
+                );
+
+                router.get('/:orderId',
+                        async (
+                            req,
+                            res
+                        ) =>
                             {
-                                const returnFromStripePaymentInfo = req.body;
-
-                                // Return a response to acknowledge receipt of the event
-                                const result = {
-                                    received: true
-                                };
-
-                                sendResult(
-                                    res,
-                                    result
-                                );
-
                                 try
                                     {
-                                        const createOrderResult = await orderUsecases.returnFromStripePayment(
+
+                                        const orderId = req.params["orderId"];
+
+                                        const order = await orderUsecases.getOrderById(
                                             {
-                                                returnFromStripePaymentInfo:returnFromStripePaymentInfo
+                                                orderId: orderId
                                             }
+                                        );
+
+                                        const result = {
+                                            order : order
+                                        };
+
+                                        sendResult(
+                                            res,
+                                            result
                                         );
                                     }
                                 catch
@@ -115,22 +202,51 @@ module.exports = function buildCreateOrderRouter
                                     error
                                 )
                                     {
-                                        console.log(error);
+                                        processError(
+                                            res,
+                                            error
+                                        )
                                     }
-                                
                             }
-                        catch
-                        (
-                            error
-                        )
-                            {
-                                processError(
-                                    res,
-                                    error
-                                )
-                            }
-                    }
-            );
+                    );
+
+                router.post('/setBusiness',
+                    async (
+                        req,
+                        res
+                    ) =>
+                        {
+                            try
+                                {
+                                    const setOrderBusinessInfo = req.body;
+
+                                    const setOrderBusinessResult = await orderUsecases.setOrderBusiness(
+                                        {
+                                            setOrderBusinessInfo: setOrderBusinessInfo
+                                        }
+                                    );
+
+                                    const result = {
+                                        result : setOrderBusinessResult
+                                    };
+
+                                    sendResult(
+                                        res,
+                                        result
+                                    );
+                                }
+                            catch
+                            (
+                                error
+                            )
+                                {
+                                    processError(
+                                        res,
+                                        error
+                                    )
+                                }
+                        }
+                );
 
 
                 return router;

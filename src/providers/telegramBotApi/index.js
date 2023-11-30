@@ -16,12 +16,13 @@ module.exports = function(
             }
         );
 
-        // const { editMessage } = require('./edit-message')(
-        //     BOT_TOKEN,
-        //     proxyAgent,
-        //     fetch,
-        //     generateInlineKeyboardMarkup
-        // )
+        const { editMessage } = require('./edit-message')(
+            {
+                BOT_TOKEN: BOT_TOKEN,
+                fetch: fetch,
+                generateInlineKeyboardMarkup: generateInlineKeyboardMarkup
+            }
+        )
 
         
         // const { sendPhoto }  = require('./send-photo')(
@@ -36,7 +37,7 @@ module.exports = function(
             {
                 sendMessage,
                 // sendPhoto,
-                // editMessage
+                editMessage
             }
         );
 

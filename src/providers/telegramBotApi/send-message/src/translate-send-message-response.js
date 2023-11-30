@@ -26,5 +26,17 @@ module.exports = function buildTranslateSendMessageResponse
                     {
                         return jsonResponse.result.message_id;    
                     }
+                else if
+                (
+                    jsonResponse.ok == false &&
+                    jsonResponse.description  
+                )
+                    {
+                        throw new Error(jsonResponse.description)
+                    }
+                else
+                    {
+                        throw new Error(`Error in translateEditMessageResponse ${JSON.stringify(jsonResponse)}`)
+                    }
             }
     }

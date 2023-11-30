@@ -1,17 +1,17 @@
 module.exports = function buildNotifyRerutnFromBankOnTlgrmGroup
 (
     {
-        sendMessageTLGRM,
+        editMessageTLGRM,
         LETTUCESOCIAL_GROUP_TELEMGRA_ID
     }
 )
     {
         if
         (
-            !sendMessageTLGRM
+            !editMessageTLGRM
         )
             {
-                throw new Error('buildNotifyRerutnFromBankOnTlgrmGroup must have sendMessageTLGRM.');
+                throw new Error('buildNotifyRerutnFromBankOnTlgrmGroup must have editMessageTLGRM.');
             }
 
         if
@@ -23,24 +23,63 @@ module.exports = function buildNotifyRerutnFromBankOnTlgrmGroup
             }
 
         return async function notifyRerutnFromBankOnTlgrmGroup
-        ()
+        (
             {
+                telegramGroupMessageId,
+                orderId,
+                creator,
+                package
+            }
+
+        )
+            {
+                if
+                (
+                    !telegramGroupMessageId
+                )
+                    {
+                        throw new Error('notifyRerutnFromBankOnTlgrmGroup must have telegramGroupMessageId.');
+                    }
+
+                if
+                (
+                    !orderId
+                )
+                    {
+                        throw new Error('notifyRerutnFromBankOnTlgrmGroup must have orderId.');
+                    }
+
+                if
+                (
+                    !creator
+                )
+                    {
+                        throw new Error('notifyRerutnFromBankOnTlgrmGroup must have creator.');
+                    }
+
+                if
+                (
+                    !package
+                )
+                    {
+                        throw new Error('notifyRerutnFromBankOnTlgrmGroup must have package.');
+                    }
+
                 try
                     {
-                        const message = 'some one return from bank';
+                        const message = `🔗 Return from bank: ${orderId}\nPackage: ${package.title}\nCreator: ${creator.instagramHandle}`;
 
-                        const sendMessageTLGRMResult = await sendMessageTLGRM(
+                        const editMessageTLGRMResult = await editMessageTLGRM(
                             {
                                 chat_id: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
+                                message_id: telegramGroupMessageId,
                                 text: message,
-                                parse_mode: 'MarkdownV2',
-                                reply_markup:[]
+                                reply_markup:[],
+                                parse_mode: undefined,
                             }
                         );
-
-                        console.log(sendMessageTLGRMResult);
-
-                        return sendMessageTLGRMResult;
+        
+                        return editMessageTLGRMResult;
                     }
                 catch
                     (
@@ -48,6 +87,7 @@ module.exports = function buildNotifyRerutnFromBankOnTlgrmGroup
                     )
                         {
                             console.log(error);
+                            throw error;
                         }
                 
                 

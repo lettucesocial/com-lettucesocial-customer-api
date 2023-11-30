@@ -68,13 +68,6 @@ module.exports = function buildSendMessage
                         throw new Error('sendMessage must have text.');
                     }
 
-                if
-                (
-                    !parse_mode
-                )
-                    {
-                        throw new Error('sendMessage must have parse_mode.');
-                    }
 
                 const options = createRequest(
                     {

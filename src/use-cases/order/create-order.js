@@ -4,7 +4,8 @@ module.exports = function buildCreateOrder
         makeOrder,
         createOrderDB,
         getPaymentUrl,
-        notifyCreatePaymentOrderOnTlgrmGroup
+        notifyCreatePaymentOrderOnTlgrmGroup,
+        setOrderTelegramGroupMessageIdDB
     }
 )
     {
@@ -39,6 +40,14 @@ module.exports = function buildCreateOrder
             {
                 throw new Error('buildCreateOrder must have notifyCreatePaymentOrderOnTlgrmGroup.');
             }
+
+        if
+        (
+            !setOrderTelegramGroupMessageIdDB
+        )
+            {
+                throw new Error('buildCreateOrder must have setOrderTelegramGroupMessageIdDB.');
+            }
             
         return async function createOrder
         (
@@ -66,12 +75,21 @@ module.exports = function buildCreateOrder
                     }
                 );
 
+                const setOrderTelegramGroupMessageIdDBResult = await setOrderTelegramGroupMessageIdDB(
+                    {
+                        orderId: orderId,
+                        telegramGroupMessageId: notifyCreatePaymentOrderOnTlgrmGroupResult
+                    }
+                );
+
+
                 const redirectUrl = `http://business.lettucesocial.com/receipt/${orderId}`;
 
                 const getPaymentUrlResult = await getPaymentUrl(
                     {
                         packageId: order.getPackageId(),
-                        redirectUrl: redirectUrl
+                        redirectUrl: redirectUrl,
+                        orderId: orderId
                     }
                 )
 

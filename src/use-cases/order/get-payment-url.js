@@ -35,7 +35,8 @@ module.exports = function buildGetPaymentUrl
         (
             {
                 packageId,
-                redirectUrl
+                redirectUrl,
+                orderId
             }
         )
             {
@@ -54,6 +55,14 @@ module.exports = function buildGetPaymentUrl
                 )
                     {
                         throw new Error('getPaymentUrl must have redirectUrl.');
+                    }
+
+                if
+                (
+                    !orderId
+                )
+                    {
+                        throw new Error('getPaymentUrl must have orderId.');
                     }
                     
                 const foundPackage = await getPackageById(
@@ -89,6 +98,7 @@ module.exports = function buildGetPaymentUrl
 
                         const createPaymentLinkStripeResult = await createPaymentLinkStripe(
                             {
+                                orderId: orderId,
                                 priceId: packageDepositPriceId,
                                 quantity: 1,
                                 redirectUrl: redirectUrl

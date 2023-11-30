@@ -1,0 +1,100 @@
+[
+  {
+    $set:
+      /**
+       * field: The field name
+       * expression: The expression.
+       */
+      {
+        packageId: "$package",
+      },
+  },
+  {
+    $lookup: {
+      from: "packages",
+      localField: "package",
+      foreignField: "_id",
+      as: "package",
+    },
+  },
+  {
+    $unwind: {
+      path: "$package",
+      preserveNullAndEmptyArrays: false,
+    },
+  },
+  {
+    $set:
+      /**
+       * field: The field name
+       * expression: The expression.
+       */
+      {
+        creatorId: "$creator",
+      },
+  },
+  {
+    $lookup: {
+      from: "creators",
+      localField: "creator",
+      foreignField: "_id",
+      as: "creator",
+    },
+  },
+  {
+    $unwind: {
+      path: "$creator",
+      preserveNullAndEmptyArrays: false,
+    },
+  },
+  {
+    $set:
+      /**
+       * field: The field name
+       * expression: The expression.
+       */
+      {
+        orderId: "$_id",
+      },
+  },
+  {
+    $set:
+      /**
+       * field: The field name
+       * expression: The expression.
+       */
+      {
+        businessId: "$business",
+      },
+  },
+  {
+    $lookup:
+      /**
+       * from: The target collection.
+       * localField: The local join field.
+       * foreignField: The target join field.
+       * as: The name for the results.
+       * pipeline: Optional pipeline to run on the foreign collection.
+       * let: Optional variables to use in the pipeline field stages.
+       */
+      {
+        from: "businesses",
+        localField: "business",
+        foreignField: "_id",
+        as: "business",
+      },
+  },
+  {
+    $unwind:
+      /**
+       * path: Path to the array field.
+       * includeArrayIndex: Optional name for index.
+       * preserveNullAndEmptyArrays: Optional
+       *   toggle to unwind null and empty values.
+       */
+      {
+        path: "$business",
+        preserveNullAndEmptyArrays: false,
+      },
+  },
+]

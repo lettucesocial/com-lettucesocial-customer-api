@@ -15,12 +15,21 @@ module.exports = function buildCreatePaymentLink
         return async function createPaymentLink
         (
             {
+                orderId,
                 priceId,
                 quantity,
                 redirectUrl
             }
         )
             {
+                if
+                (
+                    !orderId
+                )
+                    {
+                        throw new Error("createPaymentLink must have orderId")
+                    }
+
                 if
                 (
                     !priceId
@@ -60,6 +69,12 @@ module.exports = function buildCreatePaymentLink
                                     url: redirectUrl,
                                 },
                         },
+                        metadata: {
+                            "orderId": orderId
+                        },
+                        phone_number_collection: {
+                            enabled: true
+                        },
                         custom_fields: [
                             {
                                 key: 'OWNER_TITLE',
@@ -70,7 +85,7 @@ module.exports = function buildCreatePaymentLink
                                 type: 'text',
                             },
                             {
-                                key: 'OWNER_MOBILE',
+                                key: 'BUSINESS_NAME',
                                 label: {
                                     type: 'custom',
                                     custom: 'BUSINESS NAME',
