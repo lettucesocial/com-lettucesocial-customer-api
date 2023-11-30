@@ -67,7 +67,7 @@ module.exports = function buildNotifyRerutnFromBankOnTlgrmGroup
 
                 try
                     {
-                        const message = `🔗 Return from bank: ${orderId}\nPackage: ${package.title}\nCreator: ${creator.instagramHandle}`;
+                        const message = `‼ CHECK STRIPE PANEL FOR VALIDATION OF THIS PAYMENT \n\n\n💵 Return from bank: ${orderId}\nPackage: ${package.title}\nCreator: ${creator.instagramHandle}`;
 
                         const editMessageTLGRMResult = await editMessageTLGRM(
                             {

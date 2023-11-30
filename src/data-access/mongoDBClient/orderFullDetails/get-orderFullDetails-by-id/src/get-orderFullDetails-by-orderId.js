@@ -59,9 +59,9 @@ module.exports = function buildGetOrderFullDetailsByOrderId
                         orderId: orderId
                     }
                 );
-                
+
                 const response = await collection.findOne(
-                    options
+                    options.filter
                 );
 
                 const result = translateResponse(

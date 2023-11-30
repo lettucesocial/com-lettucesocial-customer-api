@@ -44,7 +44,7 @@
   {
     $unwind: {
       path: "$creator",
-      preserveNullAndEmptyArrays: false,
+      preserveNullAndEmptyArrays: true,
     },
   },
   {
@@ -94,7 +94,7 @@
        */
       {
         path: "$business",
-        preserveNullAndEmptyArrays: false,
+        preserveNullAndEmptyArrays: true,
       },
   },
 ]

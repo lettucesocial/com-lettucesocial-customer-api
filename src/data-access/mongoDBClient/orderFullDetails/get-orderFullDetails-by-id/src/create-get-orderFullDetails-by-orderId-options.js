@@ -35,7 +35,11 @@ module.exports = function buildCreateGetOrderFullDetailsByOrderIdOptions
                     "orderId": orderObjectId
                 };
 
-                return filter;
+                const options = {
+                    filter: filter
+                }
+
+                return options;
                 
             }
     }
