@@ -80,7 +80,7 @@ module.exports = function buildCreatePaymentLink
                                 key: 'OWNER_TITLE',
                                 label: {
                                     type: 'custom',
-                                    custom: 'NAME',
+                                    custom: 'Full name',
                                 },
                                 type: 'text',
                             },
@@ -88,7 +88,7 @@ module.exports = function buildCreatePaymentLink
                                 key: 'BUSINESS_NAME',
                                 label: {
                                     type: 'custom',
-                                    custom: 'BUSINESS NAME',
+                                    custom: 'Business name',
                                 },
                                 type: 'text',
                             },
