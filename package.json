@@ -1,13 +1,13 @@
 {
   "name": "com-lettucesocial-customer-api",
-  "version": "1.0.230",
+  "version": "1.0.240",
   "description": "com lettucesocial customer api",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "serve": "nodemon index.js",
     "test": "jest",
-    "publish": "node deploy"
+    "deploy": "node deploy"
   },
   "keywords": [],
   "author": "",

@@ -2,7 +2,8 @@ module.exports = function buildNotifyBusinessRequestNotificationOnTlgrmGroup
 (
     {
         sendMessageTLGRM,
-        LETTUCESOCIAL_GROUP_TELEMGRA_ID
+        LETTUCESOCIAL_GROUP_TELEMGRA_ID,
+        escapedMessageForMarkdownV2Style
     }
 )
     {
@@ -20,6 +21,14 @@ module.exports = function buildNotifyBusinessRequestNotificationOnTlgrmGroup
         )
             {
                 throw new Error('buildNotifyBusinessRequestNotificationOnTlgrmGroup must have LETTUCESOCIAL_GROUP_TELEMGRA_ID.');
+            }
+
+        if
+        (
+            !escapedMessageForMarkdownV2Style
+        )
+            {
+                throw new Error('buildNotifyBusinessRequestNotificationOnTlgrmGroup must have escapedMessageForMarkdownV2Style.');
             }
 
         return async function notifyBusinessRequestNotificationOnTlgrmGroup
@@ -48,7 +57,31 @@ module.exports = function buildNotifyBusinessRequestNotificationOnTlgrmGroup
 
                 try
                     {
-                        const message = `🔔 ${business.businessName} Request notification for zipcode ${zipcode}\n🧍‍♂️ ownerTitle: ${business.ownerTitle}\n📧 email: ${business.email}\n📱 mobile: ${business.mobile}\n`;
+                        const escapedBusinessName = escapedMessageForMarkdownV2Style(
+                            {
+                                text: business.businessName
+                            }
+                        );
+
+                        const escapedBusinessOwnerTitle = escapedMessageForMarkdownV2Style(
+                            {
+                                text: business.ownerTitle
+                            }
+                        );
+
+                        const escapedBusinessEmail = escapedMessageForMarkdownV2Style(
+                            {
+                                text: business.email
+                            }
+                        );
+
+                        const escapedBusinessMobile = escapedMessageForMarkdownV2Style(
+                            {
+                                text: business.mobile
+                            }
+                        );
+
+                        const message = `🔔 ${escapedBusinessName} Request notification for zipcode ${zipcode}\n🧍‍♂️ ownerTitle: ${escapedBusinessOwnerTitle}\n📧 email: ${escapedBusinessEmail}\n📱 mobile: ${escapedBusinessMobile}\n`;
 
                         const sendMessageTLGRMResult = await sendMessageTLGRM(
                             {

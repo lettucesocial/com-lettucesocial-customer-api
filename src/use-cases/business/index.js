@@ -9,7 +9,8 @@ module.exports = function
         addBusinessDB,
         getBusinessByIdDB,
         LETTUCESOCIAL_GROUP_TELEMGRA_ID,
-        sendMessageTLGRM
+        sendMessageTLGRM,
+        escapedMessageForMarkdownV2Style
     }
 )
     {
@@ -23,7 +24,8 @@ module.exports = function
         const notifyBusinessRequestNotificationOnTlgrmGroup = buildNotifyBusinessRequestNotificationOnTlgrmGroup(
             {
                 LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
-                sendMessageTLGRM: sendMessageTLGRM 
+                sendMessageTLGRM: sendMessageTLGRM,
+                escapedMessageForMarkdownV2Style: escapedMessageForMarkdownV2Style
             }
         );
 

@@ -101,6 +101,9 @@ module.exports = function buildCreatePaymentLink
                             //     type: 'text',
                             // },
                         ],
+                        payment_intent_data:{
+                            capture_method:"manual"
+                        }
                     }
                 );
                 

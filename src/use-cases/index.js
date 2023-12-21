@@ -46,6 +46,7 @@ module.exports = function
                 getBusinessByIdDB: dataAccess.mongo.business.getBusinessById,
                 LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
                 sendMessageTLGRM: providers.tlgrmBot.sendMessage,
+                escapedMessageForMarkdownV2Style: providers.tlgrmBot.escapedMessageForMarkdownV2Style
             }
         );
 

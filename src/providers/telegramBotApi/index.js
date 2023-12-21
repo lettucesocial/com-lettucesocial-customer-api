@@ -22,7 +22,9 @@ module.exports = function(
                 fetch: fetch,
                 generateInlineKeyboardMarkup: generateInlineKeyboardMarkup
             }
-        )
+        );
+
+        const { escapedMessageForMarkdownV2Style } = require('./escaped-message')();
 
         
         // const { sendPhoto }  = require('./send-photo')(
@@ -37,7 +39,8 @@ module.exports = function(
             {
                 sendMessage,
                 // sendPhoto,
-                editMessage
+                editMessage,
+                escapedMessageForMarkdownV2Style
             }
         );
 
