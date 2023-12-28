@@ -2,7 +2,8 @@ module.exports = function buidlBusinessRequestNotification
 (
     {
         notifyBusinessRequestNotificationOnTlgrmGroup,
-        getBusinessByIdDB
+        getBusinessByIdDB,
+        sendReceivedRequestNotificationEmailToBusiness
     }
 )
     {
@@ -20,6 +21,16 @@ module.exports = function buidlBusinessRequestNotification
         )
             {
                 throw new Error('buidlBusinessRequestNotification must have getBusinessByIdDB.');
+            }
+
+            
+
+        if
+        (
+            !sendReceivedRequestNotificationEmailToBusiness
+        )
+            {
+                throw new Error('buidlBusinessRequestNotification must have sendReceivedRequestNotificationEmailToBusiness.');
             }
 
         return async function businessRequestNotification
@@ -72,7 +83,16 @@ module.exports = function buidlBusinessRequestNotification
                             }
                         );
 
-                        console.log(notifyBusinessRequestNotificationOnTlgrmGroupResult);
+                        
+
+                        const sendReceivedRequestNotificationEmailToBusinessResult = await sendReceivedRequestNotificationEmailToBusiness(
+                            {
+                                ownerFirstName: getBusinessByIdDBResult.ownerTitle,
+                                businessEmail: getBusinessByIdDBResult.email
+                            }
+                        );
+
+                        console.log(sendReceivedRequestNotificationEmailToBusinessResult);
 
                         return 'done';
                     }

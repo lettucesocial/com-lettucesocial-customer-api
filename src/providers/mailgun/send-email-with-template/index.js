@@ -5,7 +5,7 @@ const buildSendEmailWithTemplate = require('./src/send-email-with-template');
 module.exports = function
 (
     {
-        MAILGUN_SEND_EMAIL_URL,
+        getSendEmailUrl,
         fetch
     }
 )
@@ -17,7 +17,7 @@ module.exports = function
         const sendEmailWithTemplate = buildSendEmailWithTemplate(
             {
                 fetch:fetch,
-                MAILGUN_SEND_EMAIL_URL: MAILGUN_SEND_EMAIL_URL,
+                getSendEmailUrl: getSendEmailUrl,
                 createSendEmailWithTemplateOptions: createSendEmailWithTemplateOptions,
                 translateSendEmailWithTemplateResponse: translateSendEmailWithTemplateResponse
             }

@@ -2,7 +2,7 @@ module.exports = function buildSendEmailWithTemplate
 (
     {
         fetch,
-        MAILGUN_SEND_EMAIL_URL,
+        getSendEmailUrl,
         createSendEmailWithTemplateOptions,
         translateSendEmailWithTemplateResponse
     }
@@ -18,10 +18,10 @@ module.exports = function buildSendEmailWithTemplate
 
         if
         (
-            !MAILGUN_SEND_EMAIL_URL
+            !getSendEmailUrl
         )
             {
-                throw new Error("buildSendEmailWithTemplate must have MAILGUN_SEND_EMAIL_URL")
+                throw new Error("buildSendEmailWithTemplate must have getSendEmailUrl")
             }
 
         if
@@ -47,7 +47,8 @@ module.exports = function buildSendEmailWithTemplate
                 to,
                 subject,
                 template,
-                variables
+                variables,
+                subdomain
             }
         )
             {
@@ -91,6 +92,14 @@ module.exports = function buildSendEmailWithTemplate
                         throw new Error("sendEmailWithTemplate must have variables")
                     }
 
+                if
+                (
+                    !subdomain
+                )
+                    {
+                        throw new Error("sendEmailWithTemplate must have subdomain")
+                    }
+
                 const options = createSendEmailWithTemplateOptions(
                     {
                         from: from,
@@ -103,8 +112,13 @@ module.exports = function buildSendEmailWithTemplate
 
                 try
                     {
+                        const sendEmailUrl = getSendEmailUrl(
+                            {
+                                subdomain: subdomain
+                            }
+                        )
                         const response = await fetch(
-                            MAILGUN_SEND_EMAIL_URL,
+                            sendEmailUrl,
                             options
                         );
                 

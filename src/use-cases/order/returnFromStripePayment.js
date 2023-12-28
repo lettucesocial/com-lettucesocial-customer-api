@@ -2,7 +2,8 @@ module.exports = function buildReturnFromStripePayment
 (
     {
         RECIPET_BASE_URL,
-        notifyRerutnFromBankOnTlgrmGroup
+        notifyRerutnFromBankOnTlgrmGroup,
+        processSuccessfulPayment
     }
 )
     {
@@ -20,6 +21,15 @@ module.exports = function buildReturnFromStripePayment
         )
             {
                 throw new Error('buildReturnFromStripePayment must have notifyRerutnFromBankOnTlgrmGroup.');
+            }
+
+            
+        if
+        (
+            !processSuccessfulPayment
+        )
+            {
+                throw new Error('buildReturnFromStripePayment must have processSuccessfulPayment.');
             }
 
         
@@ -63,6 +73,7 @@ module.exports = function buildReturnFromStripePayment
                             const paymentIntent = returnFromStripePaymentInfo.data.object;
                             // Then define and call a method to handle the successful payment intent.
                             // handlePaymentIntentSucceeded(paymentIntent);
+                            processSuccessfulPayment();
                             break;
                         case 'payment_method.attached':
                             const paymentMethod = returnFromStripePaymentInfo.data.object;

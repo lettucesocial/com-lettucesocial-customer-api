@@ -1,16 +1,25 @@
 
+const buildGetSendEmailUrl = require('./get-send-email-url');
+
 module.exports = function
 (
     {
         fetch,
-        MAILGUN_SEND_EMAIL_URL
+        MAILGUN_API_KEY
     }
 )
     {
+
+        const getSendEmailUrl = buildGetSendEmailUrl(
+            {
+                MAILGUN_API_KEY: MAILGUN_API_KEY
+            }
+        )
+
         const { sendEmailWithTemplate } = require('./send-email-with-template')(
             {
                 fetch: fetch,
-                MAILGUN_SEND_EMAIL_URL: MAILGUN_SEND_EMAIL_URL
+                getSendEmailUrl: getSendEmailUrl
             }
         );
 

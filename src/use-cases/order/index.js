@@ -23,7 +23,10 @@ module.exports = function
         setOrderBusinessDB,
         setOrderTelegramGroupMessageIdDB,
         getOrderFullDetailsByOrderIdDB,
-        editMessageTLGRM
+        editMessageTLGRM,
+        getDayOfWeek,
+        sendEmailWithTemplate,
+        sendText
     }
 )
     {
@@ -59,10 +62,19 @@ module.exports = function
             }
         );
 
+        const { processSuccessfulPayment } = require('./process-successful-payment')(
+            {
+                getDayOfWeek: getDayOfWeek,
+                sendEmailWithTemplate: sendEmailWithTemplate,
+                sendText: sendText
+            }
+        )
+
         const returnFromStripePayment = buildReturnFromStripePayment(
             {
                 RECIPET_BASE_URL: RECIPET_BASE_URL,
-                notifyRerutnFromBankOnTlgrmGroup:notifyRerutnFromBankOnTlgrmGroup
+                notifyRerutnFromBankOnTlgrmGroup:notifyRerutnFromBankOnTlgrmGroup,
+                processSuccessfulPayment: processSuccessfulPayment
             }
         );
 

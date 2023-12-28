@@ -1,8 +1,10 @@
+const moment = require('moment-timezone');
+
 module.exports = function
 (
     {
         mongoDb_credentials,
-        MAILGUN_SEND_EMAIL_URL,
+        MAILGUN_API_KEY,
         TWILIO_CREDENTIALS,
         TOWILIO_SMS_NUMBER,
         STRIPE_SECRET_KEY,
@@ -23,13 +25,19 @@ module.exports = function
 
         const providers = require('../providers')(
             {
-                MAILGUN_SEND_EMAIL_URL: MAILGUN_SEND_EMAIL_URL,
+                MAILGUN_API_KEY: MAILGUN_API_KEY,
                 TOWILIO_SMS_NUMBER: TOWILIO_SMS_NUMBER,
                 STRIPE_SECRET_KEY: STRIPE_SECRET_KEY,
                 TWILIO_CREDENTIALS: TWILIO_CREDENTIALS,
                 BOT_TOKEN: BOT_TOKEN
             }
         );
+
+        const shareServices = require('./share')(
+            {
+                moment: moment
+            }
+        )
         
         const creatorServices = require('./creator')(
             {
@@ -46,7 +54,8 @@ module.exports = function
                 getBusinessByIdDB: dataAccess.mongo.business.getBusinessById,
                 LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
                 sendMessageTLGRM: providers.tlgrmBot.sendMessage,
-                escapedMessageForMarkdownV2Style: providers.tlgrmBot.escapedMessageForMarkdownV2Style
+                escapedMessageForMarkdownV2Style: providers.tlgrmBot.escapedMessageForMarkdownV2Style,
+                sendEmailWithTemplate: providers.mailgun.sendEmailWithTemplate
             }
         );
 
@@ -79,7 +88,10 @@ module.exports = function
                 setOrderDepositDB: dataAccess.mongo.order.setOrderBusiness,
                 setOrderTelegramGroupMessageIdDB: dataAccess.mongo.order.setOrderTelegramGroupMessageId,
                 getOrderFullDetailsByOrderIdDB: dataAccess.mongo.orderFullDetails.getOrderFullDetailsByOrderId,
-                editMessageTLGRM: providers.tlgrmBot.editMessage
+                editMessageTLGRM: providers.tlgrmBot.editMessage,
+                getDayOfWeek: shareServices.getDayOfWeek,
+                sendEmailWithTemplate: providers.mailgun.sendEmailWithTemplate,
+                sendText: providers.twilio.sendText
             }
         );
 

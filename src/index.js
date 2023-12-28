@@ -6,7 +6,7 @@ const useCaseServices = require('./use-cases')(
             MONGODB_URI: process.env.MONGODB_URI,
             DATABASE_NAME: process.env.DATABASE_NAME
          },
-      MAILGUN_SEND_EMAIL_URL:  process.env.MAILGUN_SEND_EMAIL_URL,
+      MAILGUN_API_KEY:  process.env.MAILGUN_API_KEY,
       TWILIO_CREDENTIALS: {
          ACCOUNT_SID: process.env.ACCOUNT_SID,
          AUTH_TOKEN: process.env.AUTH_TOKEN

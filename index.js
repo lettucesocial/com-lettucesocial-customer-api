@@ -119,6 +119,56 @@ app.use('/package', pakcageRoutes);
 const orderRoutes = routerServices.order()
 app.use('/order', orderRoutes);
 
+app.post('/returnFromBank/stripe',
+    async (
+        req,
+        res
+    ) =>
+        {
+            try
+                {
+                    const returnFromStripePaymentInfo = req.body;
+
+                    // Return a response to acknowledge receipt of the event
+                    const result = {
+                        received: true
+                    };
+
+                    sendResult(
+                        res,
+                        result
+                    );
+
+                    try
+                        {
+                            const createOrderResult = await customerServices.order.returnFromStripePayment(
+                                {
+                                    returnFromStripePaymentInfo:returnFromStripePaymentInfo
+                                }
+                            );
+                        }
+                    catch
+                    (
+                        error
+                    )
+                        {
+                            console.log(error);
+                        }
+                    
+                }
+            catch
+            (
+                error
+            )
+                {
+                    processError(
+                        res,
+                        error
+                    )
+                }
+        }
+);
+
 
 function sendResult
 (

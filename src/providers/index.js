@@ -4,7 +4,7 @@ var fetch = require('node-fetch');
 module.exports = function
 (
     {
-        MAILGUN_SEND_EMAIL_URL,
+        MAILGUN_API_KEY,
         TWILIO_CREDENTIALS,
         TOWILIO_SMS_NUMBER,
         STRIPE_SECRET_KEY,
@@ -15,7 +15,7 @@ module.exports = function
         const mailgunServices = require('./mailgun')(
             {
                 fetch: fetch,
-                MAILGUN_SEND_EMAIL_URL:MAILGUN_SEND_EMAIL_URL
+                MAILGUN_API_KEY:MAILGUN_API_KEY
             }
         );
 
