@@ -39,7 +39,15 @@ module.exports = function
             {
                 stripe: stripe
             }
-        )
+        );
+
+        
+
+        const { getCustomer } = require('./get-customer')(
+            {
+                stripe: stripe
+            }
+        );
 
 
         const services = Object.freeze(
@@ -47,7 +55,8 @@ module.exports = function
                 checkout,
                 createPaymentLink,
                 createPrice,
-                createProduct
+                createProduct,
+                getCustomer
             }
         );
 

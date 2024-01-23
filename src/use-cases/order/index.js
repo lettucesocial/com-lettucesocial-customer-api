@@ -26,7 +26,10 @@ module.exports = function
         editMessageTLGRM,
         getDayOfWeek,
         sendEmailWithTemplate,
-        sendText
+        sendText,
+        setStripePaymentInfoDB,
+        setStripeCheckoutInfoDB,
+        getCustomerStripe
     }
 )
     {
@@ -34,7 +37,8 @@ module.exports = function
             {
                 createPackageDepositStripePriceId: createPackageDepositStripePriceId,
                 createPaymentLinkStripe: createPaymentLinkStripe,
-                getPackageById: getPackageById
+                getPackageById: getPackageById,
+                setStripePaymentInfoDB: setStripePaymentInfoDB
             }
         );
 
@@ -51,7 +55,8 @@ module.exports = function
                 createOrderDB: createOrderDB,
                 getPaymentUrl: getPaymentUrl,
                 notifyCreatePaymentOrderOnTlgrmGroup: notifyCreatePaymentOrderOnTlgrmGroup,
-                setOrderTelegramGroupMessageIdDB: setOrderTelegramGroupMessageIdDB
+                setOrderTelegramGroupMessageIdDB: setOrderTelegramGroupMessageIdDB,
+                
             }
         );
 
@@ -66,7 +71,8 @@ module.exports = function
             {
                 getDayOfWeek: getDayOfWeek,
                 sendEmailWithTemplate: sendEmailWithTemplate,
-                sendText: sendText
+                sendText: sendText,
+                getOrderFullDetailsByOrderIdDB: getOrderFullDetailsByOrderIdDB
             }
         )
 
@@ -105,6 +111,14 @@ module.exports = function
                 notifyRerutnFromBankOnTlgrmGroup: notifyRerutnFromBankOnTlgrmGroup
             }
         );
+
+        const { processStipeWebhookRequest } = require('./process-stipe-webhook-request')(
+            {
+                processSuccessfulPayment: processSuccessfulPayment,
+                setStripeCheckoutInfoDB: setStripeCheckoutInfoDB,
+                getCustomerStripe: getCustomerStripe
+            }
+        );
         
         const services = Object.freeze(
             {
@@ -112,7 +126,8 @@ module.exports = function
                 returnFromStripePayment,
                 getOrderById,
                 setOrderBusiness,
-                notifyReturnFromStripePayment
+                notifyReturnFromStripePayment,
+                processStipeWebhookRequest
             }
         );
 

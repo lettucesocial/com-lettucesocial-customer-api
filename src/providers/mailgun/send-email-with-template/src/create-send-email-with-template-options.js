@@ -9,7 +9,8 @@ module.exports = function buildCreateSendEmailWithTemplateOptions
                 to,
                 subject,
                 template,
-                variables
+                variables,
+                bcc
             }
         )
             {
@@ -61,6 +62,13 @@ module.exports = function buildCreateSendEmailWithTemplateOptions
                 params.append('template', template);
                 params.append('h:X-Mailgun-Variables', JSON.stringify(variables));
 
+                if
+                (
+                    bcc
+                )
+                    {
+                        params.append('bcc', bcc);
+                    }
        
                 const options= {
                     method:"POST",

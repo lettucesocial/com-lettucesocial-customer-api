@@ -36,12 +36,28 @@ module.exports = function
             }
         );
 
+        const { setStripePaymentInfo } = require('./set-stripe-payment-info')(
+            {
+                getDb:getDb,
+                ObjectId: ObjectId
+            }
+        );
+
+        const { setStripeCheckoutInfo } = require('./set-stripe-checkout-info')(
+            {
+                getDb:getDb,
+                ObjectId: ObjectId
+            }
+        );
+
         const services = Object.freeze(
             {
                 addOrder,
                 getOrderById,
                 setOrderBusiness,
-                setOrderTelegramGroupMessageId
+                setOrderTelegramGroupMessageId,
+                setStripePaymentInfo,
+                setStripeCheckoutInfo
             }
         );
 

@@ -41,7 +41,7 @@ module.exports = function buildReturnFromStripePayment
         )
             {
 
-                notifyRerutnFromBankOnTlgrmGroup();
+                
                 if
                 (
                     !returnFromStripePaymentInfo
@@ -81,12 +81,20 @@ module.exports = function buildReturnFromStripePayment
                             // handlePaymentMethodAttached(paymentMethod);
                             break;
                         // ... handle other event types
+                        case 'payment_intent.created':
+                            const paymentCreated = returnFromStripePaymentInfo.data.object;
+                            // Then define and call a method to handle the successful attachment of a PaymentMethod.
+                            // handlePaymentMethodAttached(paymentMethod);
+                            break;
+
                         default:
                             console.log(`Unhandled event type ${returnFromStripePaymentInfo.type}`);
                     }
 
                     
                 console.log(returnFromStripePaymentInfo);
+
+                //notifyRerutnFromBankOnTlgrmGroup();
 
                 // check if payment true
 

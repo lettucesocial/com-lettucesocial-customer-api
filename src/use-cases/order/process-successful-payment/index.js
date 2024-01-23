@@ -5,7 +5,8 @@ module.exports = function
     {
         getDayOfWeek,
         sendEmailWithTemplate,
-        sendText
+        sendText,
+        getOrderFullDetailsByOrderIdDB
     }
 )
     {
@@ -20,7 +21,8 @@ module.exports = function
 
         const processSuccessfulPayment = buildProcessSuccessfulPayment(
             {
-                notifySuccessfulDepositHoldToBusiness: notifySuccessfulDepositHoldToBusiness
+                notifySuccessfulDepositHoldToBusiness: notifySuccessfulDepositHoldToBusiness,
+                getOrderFullDetailsByOrderIdDB: getOrderFullDetailsByOrderIdDB
             }
         );
 

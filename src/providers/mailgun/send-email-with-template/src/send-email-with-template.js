@@ -48,7 +48,8 @@ module.exports = function buildSendEmailWithTemplate
                 subject,
                 template,
                 variables,
-                subdomain
+                subdomain,
+                bcc
             }
         )
             {
@@ -106,7 +107,8 @@ module.exports = function buildSendEmailWithTemplate
                         to: to,
                         subject: subject,
                         template: template,
-                        variables: variables
+                        variables: variables,
+                        bcc: bcc
                     }
                 );
 

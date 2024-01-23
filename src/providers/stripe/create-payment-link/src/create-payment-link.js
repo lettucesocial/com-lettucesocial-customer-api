@@ -70,7 +70,7 @@ module.exports = function buildCreatePaymentLink
                                 },
                         },
                         metadata: {
-                            "orderId": orderId
+                            "order_id": orderId
                         },
                         phone_number_collection: {
                             enabled: true

@@ -35,7 +35,8 @@ module.exports = function buildNotifyBusinessRequestNotificationOnTlgrmGroup
         (
             {
                 zipcode,
-                business
+                business,
+                emailResultMessage
             }
         )
             {
@@ -53,6 +54,14 @@ module.exports = function buildNotifyBusinessRequestNotificationOnTlgrmGroup
                 )
                     {
                         throw new Error('notifyBusinessRequestNotificationOnTlgrmGroup must have business.');
+                    }
+
+                if
+                (
+                    !emailResultMessage
+                )
+                    {
+                        throw new Error('notifyBusinessRequestNotificationOnTlgrmGroup must have emailResultMessage.');
                     }
 
                 try
@@ -81,7 +90,15 @@ module.exports = function buildNotifyBusinessRequestNotificationOnTlgrmGroup
                             }
                         );
 
-                        const message = `🔔 ${escapedBusinessName} Request notification for zipcode ${zipcode}\n🧍‍♂️ ownerTitle: ${escapedBusinessOwnerTitle}\n📧 email: ${escapedBusinessEmail}\n📱 mobile: ${escapedBusinessMobile}\n`;
+
+                        
+                        const escapedEmailResultMessage = escapedMessageForMarkdownV2Style(
+                            {
+                                text: emailResultMessage
+                            }
+                        );
+
+                        const message = `🔔 ${escapedBusinessName} Request notification for zipcode ${zipcode}\n🧍‍♂️ ownerTitle: ${escapedBusinessOwnerTitle}\n📧 email: ${escapedBusinessEmail}\n📱 mobile: ${escapedBusinessMobile}\n📧 send email Result:${escapedEmailResultMessage}`;
 
                         const sendMessageTLGRMResult = await sendMessageTLGRM(
                             {

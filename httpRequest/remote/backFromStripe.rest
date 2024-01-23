@@ -1,5 +1,6 @@
-//POST https://customer-api.lettucesocial.com/order/returnFromBank/stripe
-POST https://customer-api.lettucesocial.com/returnFromBank/stripe
+POST https://customer-api.lettucesocial.com/order/returnFromBank/stripe
+//POST https://customer-api.lettucesocial.com/returnFromBank/stripe
+
      
 Content-Type: application/json
 

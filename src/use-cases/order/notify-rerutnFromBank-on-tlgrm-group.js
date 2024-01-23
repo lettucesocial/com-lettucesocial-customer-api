@@ -87,7 +87,7 @@ module.exports = function buildNotifyRerutnFromBankOnTlgrmGroup
                     )
                         {
                             console.log(error);
-                            throw error;
+                            //throw error;
                         }
                 
                 

@@ -76,12 +76,7 @@ module.exports = function buidlBusinessRequestNotification
                     getBusinessByIdDBResult
                 )
                     {
-                        const notifyBusinessRequestNotificationOnTlgrmGroupResult = await notifyBusinessRequestNotificationOnTlgrmGroup(
-                            {
-                                zipcode: zipcode,
-                                business: getBusinessByIdDBResult
-                            }
-                        );
+                        
 
                         
 
@@ -89,6 +84,14 @@ module.exports = function buidlBusinessRequestNotification
                             {
                                 ownerFirstName: getBusinessByIdDBResult.ownerTitle,
                                 businessEmail: getBusinessByIdDBResult.email
+                            }
+                        );
+
+                        const notifyBusinessRequestNotificationOnTlgrmGroupResult = await notifyBusinessRequestNotificationOnTlgrmGroup(
+                            {
+                                zipcode: zipcode,
+                                business: getBusinessByIdDBResult,
+                                emailResultMessage: sendReceivedRequestNotificationEmailToBusinessResult.message
                             }
                         );
 

@@ -1,7 +1,8 @@
 module.exports = function buildProcessSuccessfulPayment
 (
     {
-        notifySuccessfulDepositHoldToBusiness
+        notifySuccessfulDepositHoldToBusiness,
+        getOrderFullDetailsByOrderIdDB
     }
 )
     {
@@ -13,16 +14,52 @@ module.exports = function buildProcessSuccessfulPayment
                 throw new Error("buildProcessSuccessfulPayment must have notifySuccessfulDepositHoldToBusiness")
             }
 
-        return async function processSuccessfulPayment
-        ()
+        if
+        (
+            !getOrderFullDetailsByOrderIdDB
+        )
             {
+                throw new Error("buildProcessSuccessfulPayment must have getOrderFullDetailsByOrderIdDB")
+            }
+
+        return async function processSuccessfulPayment
+        (
+            {
+                orderId
+            }
+        )
+            {
+                if
+                (
+                    !orderId
+                )
+                    {
+                        throw new Error("processSuccessfulPayment must have orderId")
+                    }
+
+                const getOrderFullDetailsByOrderIdDBResult = await getOrderFullDetailsByOrderIdDB(
+                    {
+                        orderId: orderId
+                    }
+                );
+
+                if
+                (
+                    !getOrderFullDetailsByOrderIdDBResult
+                )
+                    {
+                        throw new Error(`processSuccessfulPayment | Order Not Found | ${orderId}`)
+                    }
+
+                console.log(getOrderFullDetailsByOrderIdDBResult);
+
                 const notifySuccessfulDepositHoldToBusinessResult = await notifySuccessfulDepositHoldToBusiness(
                     {
-                        ownerFirstName: ownerFirstName,
-                        businessName: businessName,
-                        businessEmail: businessEmail,
-                        creatorInstagramHandle: creatorInstagramHandle,
-                        businessPhoneNumber: businessPhoneNumber
+                        ownerFirstName: getOrderFullDetailsByOrderIdDBResult.ownerTitle,
+                        businessName: getOrderFullDetailsByOrderIdDBResult.businessName,
+                        businessEmail: getOrderFullDetailsByOrderIdDBResult.businessEmail,
+                        creatorInstagramHandle: getOrderFullDetailsByOrderIdDBResult.creator.instagramHandle,
+                        businessPhoneNumber: getOrderFullDetailsByOrderIdDBResult.businessPhoneNumber
                     }
                 );
 

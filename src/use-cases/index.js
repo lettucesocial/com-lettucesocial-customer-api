@@ -81,7 +81,8 @@ module.exports = function
                 RECIPET_BASE_URL : RECIPET_BASE_URL,
                 sendMessageTLGRM: providers.tlgrmBot.sendMessage,
                 LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
-                getOrderByIdDB: dataAccess.mongo.order.getOrderById,
+                //getOrderByIdDB: dataAccess.mongo.order.getOrderById,
+                getOrderByIdDB: dataAccess.mongo.orderFullDetails.getOrderFullDetailsByOrderId,
                 setOrderBusinessDB: dataAccess.mongo.order.setOrderBusiness,
                 setOrderPackageDB: dataAccess.mongo.order.setOrderPackage,
                 setOrderStatusDB: dataAccess.mongo.order.setOrderStatus,
@@ -91,7 +92,10 @@ module.exports = function
                 editMessageTLGRM: providers.tlgrmBot.editMessage,
                 getDayOfWeek: shareServices.getDayOfWeek,
                 sendEmailWithTemplate: providers.mailgun.sendEmailWithTemplate,
-                sendText: providers.twilio.sendText
+                sendText: providers.twilio.sendText,
+                setStripePaymentInfoDB: dataAccess.mongo.order.setStripePaymentInfo,
+                setStripeCheckoutInfoDB: dataAccess.mongo.order.setStripeCheckoutInfo,
+                getCustomerStripe: providers.stripe.getCustomer
             }
         );
 

@@ -60,7 +60,7 @@ module.exports = function buildSendSuccessfulDepositHoldEmailToBusiness
 
                 const variables = {
                     business_owner_first_name: ownerFirstName,
-                    business_name: collaborationDetail.business.name,
+                    business_name: businessName,
                     creator_instagram_handle: creatorInstagramHandle
                 }
 

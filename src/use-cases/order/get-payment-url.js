@@ -3,7 +3,8 @@ module.exports = function buildGetPaymentUrl
     {
         getPackageById,
         createPaymentLinkStripe,
-        createPackageDepositStripePriceId
+        createPackageDepositStripePriceId,
+        setStripePaymentInfoDB
     }
 )
     {
@@ -29,6 +30,14 @@ module.exports = function buildGetPaymentUrl
         )
             {
                 throw new Error('buildGetPaymentUrl must have createPackageDepositStripePriceId.');
+            }
+
+        if
+        (
+            !setStripePaymentInfoDB
+        )
+            {
+                throw new Error('buildGetPaymentUrl must have setStripePaymentInfoDB.');
             }
             
         return async function getPaymentUrl
@@ -108,6 +117,13 @@ module.exports = function buildGetPaymentUrl
                         // store payment in db
 
                         console.log(createPaymentLinkStripeResult);
+
+                        const setStripePaymentInfoDBResult = await setStripePaymentInfoDB(
+                            {
+                                orderId: orderId,
+                                stripePaymentInfo: createPaymentLinkStripeResult
+                            }
+                        )
 
                         return createPaymentLinkStripeResult.url;
       
