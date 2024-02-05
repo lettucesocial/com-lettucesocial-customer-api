@@ -29,7 +29,8 @@ module.exports = function
         sendText,
         setStripePaymentInfoDB,
         setStripeCheckoutInfoDB,
-        getCustomerStripe
+        getCustomerStripe,
+        escapedMessageForMarkdownV2Style
     }
 )
     {
@@ -72,7 +73,10 @@ module.exports = function
                 getDayOfWeek: getDayOfWeek,
                 sendEmailWithTemplate: sendEmailWithTemplate,
                 sendText: sendText,
-                getOrderFullDetailsByOrderIdDB: getOrderFullDetailsByOrderIdDB
+                getOrderFullDetailsByOrderIdDB: getOrderFullDetailsByOrderIdDB,
+                editMessageTLGRM: editMessageTLGRM,
+                escapedMessageForMarkdownV2Style: escapedMessageForMarkdownV2Style,
+                LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID
             }
         )
 
@@ -116,7 +120,9 @@ module.exports = function
             {
                 processSuccessfulPayment: processSuccessfulPayment,
                 setStripeCheckoutInfoDB: setStripeCheckoutInfoDB,
-                getCustomerStripe: getCustomerStripe
+                getCustomerStripe: getCustomerStripe,
+                LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
+                sendMessageTLGRM: sendMessageTLGRM
             }
         );
         

@@ -26,6 +26,7 @@ module.exports = function buildNotifySuccessfulDepositHoldToBusiness
         return async function notifySuccessfulDepositHoldToBusiness
         (
             {
+                orderId,
                 ownerFirstName,
                 businessName,
                 businessEmail,
@@ -34,6 +35,14 @@ module.exports = function buildNotifySuccessfulDepositHoldToBusiness
             }
         )
             {
+
+                if
+                (
+                    !orderId
+                )
+                    {
+                        throw new Error("notifySuccessfulDepositHoldToBusiness must have orderId")
+                    }
 
                 if
                 (
@@ -75,28 +84,57 @@ module.exports = function buildNotifySuccessfulDepositHoldToBusiness
                         throw new Error("notifySuccessfulDepositHoldToBusiness must have businessPhoneNumber")
                     }
 
-                const sendSuccessfulDepositHoldEmailToBusinessResult = await sendSuccessfulDepositHoldEmailToBusiness(
+                let result = {};
+                    
+                try
                     {
-                        ownerFirstName: ownerFirstName,
-                        businessName: businessName,
-                        businessEmail: businessEmail,
-                        creatorInstagramHandle: creatorInstagramHandle
-                    }
-                );
+                        const sendSuccessfulDepositHoldEmailToBusinessResult = await sendSuccessfulDepositHoldEmailToBusiness(
+                            {
+                                ownerFirstName: ownerFirstName,
+                                businessName: businessName,
+                                businessEmail: businessEmail,
+                                creatorInstagramHandle: creatorInstagramHandle
+                            }
+                        );
 
-                const sendSuccessfulDepositHoldSMSToBusinessResult = await sendSuccessfulDepositHoldSMSToBusiness(
+                        result.email = sendSuccessfulDepositHoldEmailToBusinessResult;
+
+
+                    }
+                catch
+                (
+                    error
+                )
                     {
-                        ownerFirstName: ownerFirstName,
-                        businessName: businessName,
-                        businessEmail: businessEmail,
-                        businessPhoneNumber: businessPhoneNumber
+                        const sendSuccessfulDepositHoldEmailToBusinessErrorMessage = `#ERROR | ${orderId} | notifySuccessfulDepositHoldToBusiness > sendSuccessfulDepositHoldEmailToBusiness  | ${error.message}`;
+                        result.emailError = sendSuccessfulDepositHoldEmailToBusinessErrorMessage
                     }
-                );
+                
 
-                const result = {
-                    sms: sendSuccessfulDepositHoldSMSToBusinessResult,
-                    email: sendSuccessfulDepositHoldEmailToBusinessResult
-                };
+                try
+                    {
+                        const sendSuccessfulDepositHoldSMSToBusinessResult = await sendSuccessfulDepositHoldSMSToBusiness(
+                            {
+                                ownerFirstName: ownerFirstName,
+                                businessName: businessName,
+                                businessEmail: businessEmail,
+                                businessPhoneNumber: businessPhoneNumber
+                            }
+                        );
+
+                        result.sms = sendSuccessfulDepositHoldSMSToBusinessResult;
+                    }
+                catch
+                (
+                    error
+                )
+                    {
+                        const sendSuccessfulDepositHoldSMSToBusinessResultErrorMessage = `#ERROR | ${orderId} | notifySuccessfulDepositHoldToBusiness > sendSuccessfulDepositHoldSMSToBusiness  | ${error.message}`;
+                        result.smsError = sendSuccessfulDepositHoldSMSToBusinessResultErrorMessage;
+                    }
+                
+
+                
 
                 return result;
 

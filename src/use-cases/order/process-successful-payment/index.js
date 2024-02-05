@@ -6,7 +6,10 @@ module.exports = function
         getDayOfWeek,
         sendEmailWithTemplate,
         sendText,
-        getOrderFullDetailsByOrderIdDB
+        getOrderFullDetailsByOrderIdDB,
+        editMessageTLGRM,
+        escapedMessageForMarkdownV2Style,
+        LETTUCESOCIAL_GROUP_TELEMGRA_ID
     }
 )
     {
@@ -17,12 +20,21 @@ module.exports = function
                 sendEmailWithTemplate:  sendEmailWithTemplate,
                 sendText: sendText
             }
+        );
+
+        const { notifySuccessfulDepositHoldToTelegramGroup } = require('./src/notify-successful-deposit-hold-to-telegram-group')(
+            {
+                editMessageTLGRM: editMessageTLGRM,
+                escapedMessageForMarkdownV2Style: escapedMessageForMarkdownV2Style,
+                LETTUCESOCIAL_GROUP_TELEMGRA_ID: LETTUCESOCIAL_GROUP_TELEMGRA_ID,
+            }
         )
 
         const processSuccessfulPayment = buildProcessSuccessfulPayment(
             {
                 notifySuccessfulDepositHoldToBusiness: notifySuccessfulDepositHoldToBusiness,
-                getOrderFullDetailsByOrderIdDB: getOrderFullDetailsByOrderIdDB
+                getOrderFullDetailsByOrderIdDB: getOrderFullDetailsByOrderIdDB,
+                notifySuccessfulDepositHoldToTelegramGroup: notifySuccessfulDepositHoldToTelegramGroup
             }
         );
 

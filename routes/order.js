@@ -151,14 +151,18 @@ module.exports = function buildCreateOrderRouter
                                 {
                                     const notifyReturnFromStripePaymentInfo = req.body;
 
-                                    const notifyReturnFromStripePaymentResult = await orderUsecases.notifyReturnFromStripePayment(
-                                        {
-                                            notifyReturnFromStripePaymentInfo:notifyReturnFromStripePaymentInfo
-                                        }
-                                    );
+                                    // const notifyReturnFromStripePaymentResult = await orderUsecases.notifyReturnFromStripePayment(
+                                    //     {
+                                    //         notifyReturnFromStripePaymentInfo:notifyReturnFromStripePaymentInfo
+                                    //     }
+                                    // );
+
+                                    // const result = {
+                                    //     result : notifyReturnFromStripePaymentResult
+                                    // };
 
                                     const result = {
-                                        result : notifyReturnFromStripePaymentResult
+                                        result : 'OK!'
                                     };
 
                                     sendResult(
@@ -172,10 +176,7 @@ module.exports = function buildCreateOrderRouter
                                 error
                             )
                                 {
-                                    processError(
-                                        res,
-                                        error
-                                    )
+                                    console.log(error)
                                 }
                         }
                 );

@@ -95,7 +95,8 @@ module.exports = function
                 sendText: providers.twilio.sendText,
                 setStripePaymentInfoDB: dataAccess.mongo.order.setStripePaymentInfo,
                 setStripeCheckoutInfoDB: dataAccess.mongo.order.setStripeCheckoutInfo,
-                getCustomerStripe: providers.stripe.getCustomer
+                getCustomerStripe: providers.stripe.getCustomer,
+                escapedMessageForMarkdownV2Style: providers.tlgrmBot.escapedMessageForMarkdownV2Style
             }
         );
 

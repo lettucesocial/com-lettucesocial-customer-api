@@ -1,7 +1,8 @@
 module.exports = function buildProcessStipeWebhookRequest
 (
     {
-        processStripeTypeCheckoutSessionCompleted
+        processStripeTypeCheckoutSessionCompleted,
+        notifyStipreWebhookRequestOnTelegramGroup
     }
 )
     {
@@ -14,8 +15,15 @@ module.exports = function buildProcessStipeWebhookRequest
                 throw new Error('buildProcessStipeWebhookRequest must have processStripeTypeCheckoutSessionCompleted.');
             }
 
-            
+        if
+        (
+            !notifyStipreWebhookRequestOnTelegramGroup
+        )
+            {
+                throw new Error('buildProcessStipeWebhookRequest must have notifyStipreWebhookRequestOnTelegramGroup.');
+            }
 
+    
         return async function processStipeWebhookRequest
         (
             {
@@ -23,6 +31,23 @@ module.exports = function buildProcessStipeWebhookRequest
             }
         )
             {
+
+                try
+                {
+                    const notifyStipreWebhookRequestOnTelegramGroupResult = await notifyStipreWebhookRequestOnTelegramGroup(
+                        {
+                            stipeWebhookRequest: stipeWebhookRequest
+                        }
+                    );
+                }
+                catch
+                (
+                    error
+                )
+                    {
+                        console.log(error);
+                    }
+
                 if
                 (
                     !stipeWebhookRequest
