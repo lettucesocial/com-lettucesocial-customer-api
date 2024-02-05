@@ -91,16 +91,9 @@ module.exports = function buildCreatePaymentLink
                                     custom: 'Business name',
                                 },
                                 type: 'text',
-                            },
-                            // {
-                            //     key: 'BUSINESS_NAME',
-                            //     label: {
-                            //         type: 'custom',
-                            //         custom: 'BUSINESS NAME',
-                            //     },
-                            //     type: 'text',
-                            // },
+                            }
                         ],
+                        customer_creation:'always',
                         payment_intent_data:{
                             capture_method:"manual"
                         }
